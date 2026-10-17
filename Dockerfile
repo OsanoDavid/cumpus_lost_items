@@ -1,32 +1,50 @@
-FROM richarvey/nginx-php-fpm:3.1.6
+FROM php:8.2-apache
+
+# Install system dependencies and PHP extensions needed by Laravel
+RUN apt-get update && apt-get install -y --no-install-recommends \
+    git curl unzip libpng-dev libjpeg62-turbo-dev libfreetype6-dev \
+    libzip-dev libpq-dev libonig-dev libicu-dev nodejs npm \
+    && docker-php-ext-configure gd --with-freetype --with-jpeg \
+    && docker-php-ext-install -j$(nproc) \
+        pdo pdo_pgsql pdo_mysql mbstring gd zip bcmath intl pcntl exif \
+    && a2enmod rewrite headers \
+    && apt-get clean && rm -rf /var/lib/apt/lists/*
+
+# Install Composer from official image
+COPY --from=composer:latest /usr/bin/composer /usr/bin/composer
 
 WORKDIR /var/www/html
 
-# Install Node.js for building Vite assets
-RUN apk add --no-cache nodejs npm
-
-# Copy all project files
+# Copy project files
 COPY . .
 
-# Install Node dependencies and build frontend assets
+# Install PHP dependencies (production only)
+ENV COMPOSER_ALLOW_SUPERUSER=1
+RUN composer install --no-dev --optimize-autoloader --no-interaction
+
+# Install Node dependencies and build Vite assets, then clean up
 RUN npm ci --no-audit --no-fund && npm run build && rm -rf node_modules
 
-# Nginx & PHP-FPM Configuration
-ENV SKIP_COMPOSER 0
-ENV WEBROOT /var/www/html/public
-ENV PHP_ERRORS_STDERR 1
-ENV RUN_SCRIPTS 1
-ENV REAL_IP_HEADER 1
+# Remove dev-only hot file
+RUN rm -f public/hot
 
-# Laravel environment defaults
-ENV APP_ENV production
-ENV APP_DEBUG false
-ENV LOG_CHANNEL stderr
-ENV COMPOSER_ALLOW_SUPERUSER 1
+# Set proper permissions for Laravel
+RUN chown -R www-data:www-data storage bootstrap/cache \
+    && chmod -R 775 storage bootstrap/cache
 
-# Remove dev hot file if present (breaks production asset loading)
-RUN rm -f /var/www/html/public/hot
+# Point Apache to Laravel's public directory
+ENV APACHE_DOCUMENT_ROOT=/var/www/html/public
+RUN sed -ri -e 's!/var/www/html!${APACHE_DOCUMENT_ROOT}!g' /etc/apache2/sites-available/*.conf \
+    && sed -ri -e 's!/var/www/!${APACHE_DOCUMENT_ROOT}!g' /etc/apache2/apache2.conf /etc/apache2/conf-available/*.conf
+
+# Enable .htaccess overrides for Laravel routing
+RUN sed -i '/<Directory \/var\/www\/>/,/<\/Directory>/ s/AllowOverride None/AllowOverride All/' /etc/apache2/apache2.conf
+
+# Copy and enable startup script
+COPY scripts/docker-entrypoint.sh /usr/local/bin/docker-entrypoint.sh
+RUN chmod +x /usr/local/bin/docker-entrypoint.sh
 
 EXPOSE 80
 
-CMD ["/start.sh"]
+ENTRYPOINT ["docker-entrypoint.sh"]
+CMD ["apache2-foreground"]
