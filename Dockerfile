@@ -3,10 +3,10 @@ FROM php:8.2-apache
 # Install system dependencies and PHP extensions needed by Laravel
 RUN apt-get update && apt-get install -y --no-install-recommends \
     git curl unzip libpng-dev libjpeg62-turbo-dev libfreetype6-dev \
-    libzip-dev libpq-dev libonig-dev libicu-dev nodejs npm \
+    libzip-dev libpq-dev libonig-dev libicu-dev libsqlite3-dev nodejs npm \
     && docker-php-ext-configure gd --with-freetype --with-jpeg \
     && docker-php-ext-install -j$(nproc) \
-        pdo pdo_pgsql pdo_mysql mbstring gd zip bcmath intl pcntl exif \
+        pdo pdo_sqlite pdo_pgsql pdo_mysql mbstring gd zip bcmath intl pcntl exif \
     && a2enmod rewrite headers \
     && apt-get clean && rm -rf /var/lib/apt/lists/*
 
