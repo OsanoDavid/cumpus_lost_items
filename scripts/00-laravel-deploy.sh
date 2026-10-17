@@ -12,6 +12,12 @@ fi
 chmod -R 777 /var/www/html/storage
 chmod -R 777 /var/www/html/bootstrap/cache
 
+# Remove hot file if somehow present (dev-only file that breaks production)
+rm -f /var/www/html/public/hot
+
+# Create storage link for public uploads
+php artisan storage:link --force 2>/dev/null || true
+
 # Caching Laravel configurations
 echo "Caching Laravel configuration, routes, and views..."
 php artisan config:clear

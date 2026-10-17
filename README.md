@@ -26,10 +26,11 @@ An official, responsive web application for managing, reporting, and securely re
 
 ## 🛠️ Technology Stack
 
-* **Framework**: Laravel 11 (PHP 8.2+)
+* **Framework**: Laravel 12 (PHP 8.2+)
 * **Frontend**: Blade Templates, Tailwind CSS, Alpine.js, FontAwesome 6
-* **Database**: SQLite (local) / MySQL compatible
+* **Database**: PostgreSQL (production) / SQLite (local development)
 * **Build Tooling**: Vite 7
+* **Deployment**: Docker (Render.com)
 
 ---
 
@@ -71,12 +72,48 @@ Open `http://127.0.0.1:8000` in your web browser.
 
 ---
 
+## ☁️ Render Deployment
+
+This project is configured for **Docker deployment** on [Render](https://render.com).
+
+### Render Dashboard Settings
+
+| Field | Value |
+|---|---|
+| **Environment** | Docker |
+| **Dockerfile Path** | `./Dockerfile` |
+| **Docker Context Directory** | `.` |
+
+### Required Environment Variables on Render
+
+| Variable | Value |
+|---|---|
+| `APP_NAME` | `Kisii University Lost & Found` |
+| `APP_ENV` | `production` |
+| `APP_KEY` | `base64:...` (generate with `php artisan key:generate --show`) |
+| `APP_DEBUG` | `false` |
+| `APP_URL` | `https://your-app.onrender.com` |
+| `DB_CONNECTION` | `pgsql` |
+| `DB_HOST` | *(from Render PostgreSQL dashboard)* |
+| `DB_PORT` | `5432` |
+| `DB_DATABASE` | *(from Render PostgreSQL dashboard)* |
+| `DB_USERNAME` | *(from Render PostgreSQL dashboard)* |
+| `DB_PASSWORD` | *(from Render PostgreSQL dashboard)* |
+| `SESSION_DRIVER` | `cookie` |
+| `CACHE_STORE` | `file` |
+| `LOG_CHANNEL` | `stderr` |
+
+> **Note**: If using Render's free PostgreSQL, use the **Internal Database URL** connection details.
+
+---
+
 ## 🔒 Security Best Practices
 
 * Environment credentials (`.env`) are strictly untracked.
 * SQLite databases (`*.sqlite`) are ignored from version control.
 * CSRF protection is enforced on all form submissions.
 * Passwords are encrypted with bcrypt hashing.
+* Proxy headers are properly trusted for HTTPS enforcement behind Render's load balancer.
 
 ---
 

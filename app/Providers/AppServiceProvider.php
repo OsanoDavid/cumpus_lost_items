@@ -20,7 +20,8 @@ class AppServiceProvider extends ServiceProvider
      */
     public function boot(): void
     {
-        if (config('app.env') === 'production' || request()->header('X-Forwarded-Proto') === 'https') {
+        // Force HTTPS on production (Render, etc.) behind a load balancer
+        if ($this->app->environment('production') || request()->header('X-Forwarded-Proto') === 'https') {
             URL::forceScheme('https');
         }
     }
