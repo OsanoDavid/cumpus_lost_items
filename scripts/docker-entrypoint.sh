@@ -6,6 +6,7 @@ echo "=== Kisii University Portal — Starting ==="
 # Create storage directories if they don't exist
 mkdir -p storage/framework/{sessions,views,cache/data}
 mkdir -p storage/logs
+mkdir -p storage/app/public/items
 mkdir -p bootstrap/cache
 
 # Set permissions

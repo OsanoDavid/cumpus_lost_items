@@ -27,12 +27,10 @@ return new class extends Migration
             }
         });
 
-        // Make user_id nullable — only needed on PostgreSQL (SQLite already allows this via the initial create)
-        if ($driver === 'pgsql') {
-            Schema::table('items', function (Blueprint $table) {
-                $table->unsignedBigInteger('user_id')->nullable()->change();
-            });
-        }
+        // Make user_id nullable
+        Schema::table('items', function (Blueprint $table) {
+            $table->unsignedBigInteger('user_id')->nullable()->change();
+        });
 
         Schema::table('users', function (Blueprint $table) use ($driver) {
             if (!Schema::hasColumn('users', 'phone')) {

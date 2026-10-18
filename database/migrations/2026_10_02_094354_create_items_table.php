@@ -13,14 +13,14 @@ return new class extends Migration
     {
         Schema::create('items', function (Blueprint $table) {
             $table->id();
-            $table->foreignId('user_id')->constrained()->onDelete('cascade');
+            $table->foreignId('user_id')->nullable()->constrained()->onDelete('cascade');
             $table->string('title');
             $table->text('description');
             $table->enum('status', ['lost', 'found']);
             $table->string('category');
             $table->string('location');
             $table->string('image_path')->nullable();
-            $table->enum('is_resolved', ['pending', 'resolved'])->default('pending');
+            $table->boolean('is_resolved')->default(false);
             $table->timestamps();
         });
     }
