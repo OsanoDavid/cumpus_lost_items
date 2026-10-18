@@ -13,7 +13,7 @@ return new class extends Migration
     {
         Schema::table('users', function (Blueprint $table) {
             if (!Schema::hasColumn('users', 'is_super_admin')) {
-                $table->boolean('is_super_admin')->default(false)->after('is_admin');
+                $table->boolean('is_super_admin')->default(false);
             }
         });
     }

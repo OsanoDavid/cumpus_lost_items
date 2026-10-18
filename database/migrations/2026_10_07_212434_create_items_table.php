@@ -7,29 +7,20 @@ use Illuminate\Support\Facades\Schema;
 return new class extends Migration
 {
     /**
-     * Run the migrations.
+     * This migration is intentionally a no-op.
+     * The items table is created by the earlier migration (2026_10_02_094354).
+     * This duplicate was causing 'table already exists' errors on fresh deployments.
      */
-       public function schemaUp()
-{
-    Schema::create('items', function (Blueprint $table) {
-        $table->id();
-        $table->foreignId('user_id')->constrained()->onDelete('cascade');
-        $table->string('item_name');
-        $table->string('category'); // e.g., Student IDs, Electronics, Books, Personal Items
-        $table->string('location_found');
-        $table->text('description');
-        $table->string('image_path')->nullable();
-        $table->enum('status', ['Unclaimed', 'Claimed'])->default('Unclaimed');
-        $table->timestamps();
-    });
-}
-    
+    public function up(): void
+    {
+        // No-op: items table is created by 2026_10_02_094354_create_items_table.php
+    }
 
     /**
      * Reverse the migrations.
      */
     public function down(): void
     {
-        Schema::dropIfExists('items');
+        // No-op
     }
 };

@@ -18,14 +18,22 @@ if [ ! -f .env ]; then
     php artisan key:generate --force
 fi
 
+# Ensure production-safe defaults for drivers that don't require database tables
+# These can be overridden by Render environment variables
+export SESSION_DRIVER="${SESSION_DRIVER:-cookie}"
+export CACHE_STORE="${CACHE_STORE:-file}"
+export QUEUE_CONNECTION="${QUEUE_CONNECTION:-sync}"
+
 # Set up SQLite database
 echo "Setting up SQLite database..."
 touch database/database.sqlite
 chown www-data:www-data database/database.sqlite
 chmod 664 database/database.sqlite
 
-# Cache Laravel configuration
+# Clear config cache before caching (ensures fresh env vars are picked up)
 php artisan config:clear
+
+# Cache Laravel configuration
 php artisan config:cache
 php artisan route:cache
 php artisan view:cache
@@ -33,9 +41,13 @@ php artisan view:cache
 # Create storage symlink
 php artisan storage:link --force 2>/dev/null || true
 
-# Run migrations (--force required in production, --seed for initial data)
+# Run migrations (--force required in production)
+# Show errors so deployment failures are visible in logs
 echo "Running migrations..."
-php artisan migrate --force --seed 2>/dev/null || php artisan migrate --force 2>/dev/null || true
+php artisan migrate --force 2>&1 || echo "WARNING: Migration failed — check logs above"
+
+# Seed only if this is a fresh database (seeder should be idempotent)
+php artisan db:seed --force 2>&1 || echo "WARNING: Seeding failed — check logs above"
 
 echo "=== Ready — Launching Apache ==="
 

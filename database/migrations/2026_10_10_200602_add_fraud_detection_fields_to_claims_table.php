@@ -12,11 +12,21 @@ return new class extends Migration
     public function up(): void
     {
         Schema::table('claims', function (Blueprint $table) {
-            $table->date('claimed_loss_date')->nullable()->after('proof_details');
-            $table->string('claimed_location')->nullable()->after('claimed_loss_date');
-            $table->boolean('is_suspicious')->default(false)->after('claimed_location');
-            $table->text('flag_reason')->nullable()->after('is_suspicious');
-            $table->text('admin_notes')->nullable()->after('flag_reason');
+            if (!Schema::hasColumn('claims', 'claimed_loss_date')) {
+                $table->date('claimed_loss_date')->nullable();
+            }
+            if (!Schema::hasColumn('claims', 'claimed_location')) {
+                $table->string('claimed_location')->nullable();
+            }
+            if (!Schema::hasColumn('claims', 'is_suspicious')) {
+                $table->boolean('is_suspicious')->default(false);
+            }
+            if (!Schema::hasColumn('claims', 'flag_reason')) {
+                $table->text('flag_reason')->nullable();
+            }
+            if (!Schema::hasColumn('claims', 'admin_notes')) {
+                $table->text('admin_notes')->nullable();
+            }
         });
     }
 
