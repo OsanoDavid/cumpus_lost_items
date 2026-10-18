@@ -71,6 +71,10 @@ class CreateSuperAdmin extends Command
         $superAdmin = \App\Models\User::create([
             'name' => $name,
             'email' => $email,
+            'reg_number' => 'SUPER/' . strtoupper(substr(md5($email), 0, 5)) . '/ADMIN',
+            'school' => 'School of Information Sciences & Technology (SIST)',
+            'course' => 'Administration & Security Oversight',
+            'year_of_study' => 'Staff / Admin',
             'password' => \Illuminate\Support\Facades\Hash::make($password),
             'is_admin' => true,
             'is_super_admin' => true,

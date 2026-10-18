@@ -271,6 +271,187 @@
         </div>
     </div>
 
+    <!-- Official Schools & Faculties Logbook Hub (Exact 8 Schools) -->
+    <div id="schools-hub" class="py-16 bg-[#0b1324] text-white border-t border-slate-800 relative overflow-hidden">
+        <!-- Subtle Background Glows -->
+        <div class="absolute -top-32 -left-32 w-80 h-80 bg-emerald-600/10 rounded-full blur-3xl pointer-events-none"></div>
+        <div class="absolute -bottom-32 -right-32 w-80 h-80 bg-cyan-600/10 rounded-full blur-3xl pointer-events-none"></div>
+
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 space-y-10 relative z-10">
+            <div class="flex flex-col md:flex-row md:items-end justify-between gap-4">
+                <div>
+                    <div class="inline-flex items-center gap-2 text-xs font-bold text-emerald-400 uppercase tracking-wider mb-2">
+                        <i class="fa-solid fa-building-columns"></i>
+                        <span>Campus Academic Divisions</span>
+                    </div>
+                    <h2 class="text-3xl font-extrabold text-white tracking-tight">University Schools & Faculty Logbooks</h2>
+                    <p class="text-sm text-slate-400 mt-1 max-w-2xl">
+                        Filter and inspect surrendered items cataloged across the 8 official academic schools of Kisii University.
+                    </p>
+                </div>
+                <div class="text-xs font-semibold text-emerald-300 bg-emerald-950/80 px-3.5 py-2 rounded-xl border border-emerald-700/50 inline-flex items-center gap-2 w-fit">
+                    <span class="w-2 h-2 rounded-full bg-emerald-400 animate-pulse"></span>
+                    <span>8 Official Faculties Connected</span>
+                </div>
+            </div>
+
+            <!-- 8 Schools Grid Matching Screenshot 2 -->
+            <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-5">
+                <!-- 1. SIST -->
+                <div class="bg-[#121c32] hover:bg-[#182542] border border-slate-800/90 hover:border-cyan-500/60 rounded-3xl p-6 flex flex-col justify-between transition-all duration-300 hover:shadow-xl hover:shadow-cyan-950/40 group hover:-translate-y-1">
+                    <div>
+                        <div class="w-12 h-12 rounded-2xl bg-cyan-950/80 border border-cyan-500/40 text-cyan-400 flex items-center justify-center text-xl mb-4 group-hover:scale-110 transition-transform">
+                            <i class="fa-solid fa-laptop"></i>
+                        </div>
+                        <h3 class="text-xl font-extrabold text-cyan-400 mb-1.5 tracking-tight">SIST</h3>
+                        <p class="text-xs text-slate-300 font-medium leading-relaxed">
+                            School of Information Sciences & Technology
+                        </p>
+                    </div>
+                    <div class="pt-6 border-t border-slate-800/80 mt-6">
+                        <a href="{{ Auth::check() ? route('items.index', ['search' => 'SIST']) : route('login') }}" class="text-[11px] font-bold text-cyan-400 group-hover:text-cyan-300 uppercase tracking-widest flex items-center justify-between">
+                            <span>Open Logbook</span>
+                            <i class="fa-solid fa-arrow-right group-hover:translate-x-1 transition-transform"></i>
+                        </a>
+                    </div>
+                </div>
+
+                <!-- 2. SASS -->
+                <div class="bg-[#121c32] hover:bg-[#182542] border border-slate-800/90 hover:border-purple-500/60 rounded-3xl p-6 flex flex-col justify-between transition-all duration-300 hover:shadow-xl hover:shadow-purple-950/40 group hover:-translate-y-1">
+                    <div>
+                        <div class="w-12 h-12 rounded-2xl bg-purple-950/80 border border-purple-500/40 text-purple-400 flex items-center justify-center text-xl mb-4 group-hover:scale-110 transition-transform">
+                            <i class="fa-solid fa-masks-theater"></i>
+                        </div>
+                        <h3 class="text-xl font-extrabold text-purple-400 mb-1.5 tracking-tight">SASS</h3>
+                        <p class="text-xs text-slate-300 font-medium leading-relaxed">
+                            School of Arts and Social Sciences
+                        </p>
+                    </div>
+                    <div class="pt-6 border-t border-slate-800/80 mt-6">
+                        <a href="{{ Auth::check() ? route('items.index', ['search' => 'SASS']) : route('login') }}" class="text-[11px] font-bold text-purple-400 group-hover:text-purple-300 uppercase tracking-widest flex items-center justify-between">
+                            <span>Open Logbook</span>
+                            <i class="fa-solid fa-arrow-right group-hover:translate-x-1 transition-transform"></i>
+                        </a>
+                    </div>
+                </div>
+
+                <!-- 3. SOBE -->
+                <div class="bg-[#121c32] hover:bg-[#182542] border border-slate-800/90 hover:border-emerald-500/60 rounded-3xl p-6 flex flex-col justify-between transition-all duration-300 hover:shadow-xl hover:shadow-emerald-950/40 group hover:-translate-y-1">
+                    <div>
+                        <div class="w-12 h-12 rounded-2xl bg-emerald-950/80 border border-emerald-500/40 text-emerald-400 flex items-center justify-center text-xl mb-4 group-hover:scale-110 transition-transform">
+                            <i class="fa-solid fa-chart-simple"></i>
+                        </div>
+                        <h3 class="text-xl font-extrabold text-emerald-400 mb-1.5 tracking-tight">SOBE</h3>
+                        <p class="text-xs text-slate-300 font-medium leading-relaxed">
+                            School of Business and Economics
+                        </p>
+                    </div>
+                    <div class="pt-6 border-t border-slate-800/80 mt-6">
+                        <a href="{{ Auth::check() ? route('items.index', ['search' => 'SOBE']) : route('login') }}" class="text-[11px] font-bold text-emerald-400 group-hover:text-emerald-300 uppercase tracking-widest flex items-center justify-between">
+                            <span>Open Logbook</span>
+                            <i class="fa-solid fa-arrow-right group-hover:translate-x-1 transition-transform"></i>
+                        </a>
+                    </div>
+                </div>
+
+                <!-- 4. SEDHURED -->
+                <div class="bg-[#121c32] hover:bg-[#182542] border border-slate-800/90 hover:border-amber-500/60 rounded-3xl p-6 flex flex-col justify-between transition-all duration-300 hover:shadow-xl hover:shadow-amber-950/40 group hover:-translate-y-1">
+                    <div>
+                        <div class="w-12 h-12 rounded-2xl bg-amber-950/80 border border-amber-500/40 text-amber-400 flex items-center justify-center text-xl mb-4 group-hover:scale-110 transition-transform">
+                            <i class="fa-solid fa-graduation-cap"></i>
+                        </div>
+                        <h3 class="text-xl font-extrabold text-amber-400 mb-1.5 tracking-tight">SEDHURED</h3>
+                        <p class="text-xs text-slate-300 font-medium leading-relaxed">
+                            School of Education and Human Resource Development
+                        </p>
+                    </div>
+                    <div class="pt-6 border-t border-slate-800/80 mt-6">
+                        <a href="{{ Auth::check() ? route('items.index', ['search' => 'SEDHURED']) : route('login') }}" class="text-[11px] font-bold text-amber-400 group-hover:text-amber-300 uppercase tracking-widest flex items-center justify-between">
+                            <span>Open Logbook</span>
+                            <i class="fa-solid fa-arrow-right group-hover:translate-x-1 transition-transform"></i>
+                        </a>
+                    </div>
+                </div>
+
+                <!-- 5. SHS -->
+                <div class="bg-[#121c32] hover:bg-[#182542] border border-slate-800/90 hover:border-rose-500/60 rounded-3xl p-6 flex flex-col justify-between transition-all duration-300 hover:shadow-xl hover:shadow-rose-950/40 group hover:-translate-y-1">
+                    <div>
+                        <div class="w-12 h-12 rounded-2xl bg-rose-950/80 border border-rose-500/40 text-rose-400 flex items-center justify-center text-xl mb-4 group-hover:scale-110 transition-transform">
+                            <i class="fa-solid fa-square-plus"></i>
+                        </div>
+                        <h3 class="text-xl font-extrabold text-rose-400 mb-1.5 tracking-tight">SHS</h3>
+                        <p class="text-xs text-slate-300 font-medium leading-relaxed">
+                            School of Health Sciences
+                        </p>
+                    </div>
+                    <div class="pt-6 border-t border-slate-800/80 mt-6">
+                        <a href="{{ Auth::check() ? route('items.index', ['search' => 'SHS']) : route('login') }}" class="text-[11px] font-bold text-rose-400 group-hover:text-rose-300 uppercase tracking-widest flex items-center justify-between">
+                            <span>Open Logbook</span>
+                            <i class="fa-solid fa-arrow-right group-hover:translate-x-1 transition-transform"></i>
+                        </a>
+                    </div>
+                </div>
+
+                <!-- 6. SLAW -->
+                <div class="bg-[#121c32] hover:bg-[#182542] border border-slate-800/90 hover:border-yellow-500/60 rounded-3xl p-6 flex flex-col justify-between transition-all duration-300 hover:shadow-xl hover:shadow-yellow-950/40 group hover:-translate-y-1">
+                    <div>
+                        <div class="w-12 h-12 rounded-2xl bg-yellow-950/80 border border-yellow-500/40 text-yellow-400 flex items-center justify-center text-xl mb-4 group-hover:scale-110 transition-transform">
+                            <i class="fa-solid fa-scale-balanced"></i>
+                        </div>
+                        <h3 class="text-xl font-extrabold text-yellow-400 mb-1.5 tracking-tight">SLAW</h3>
+                        <p class="text-xs text-slate-300 font-medium leading-relaxed">
+                            School of Law
+                        </p>
+                    </div>
+                    <div class="pt-6 border-t border-slate-800/80 mt-6">
+                        <a href="{{ Auth::check() ? route('items.index', ['search' => 'SLAW']) : route('login') }}" class="text-[11px] font-bold text-yellow-400 group-hover:text-yellow-300 uppercase tracking-widest flex items-center justify-between">
+                            <span>Open Logbook</span>
+                            <i class="fa-solid fa-arrow-right group-hover:translate-x-1 transition-transform"></i>
+                        </a>
+                    </div>
+                </div>
+
+                <!-- 7. SPAS -->
+                <div class="bg-[#121c32] hover:bg-[#182542] border border-slate-800/90 hover:border-fuchsia-500/60 rounded-3xl p-6 flex flex-col justify-between transition-all duration-300 hover:shadow-xl hover:shadow-fuchsia-950/40 group hover:-translate-y-1">
+                    <div>
+                        <div class="w-12 h-12 rounded-2xl bg-fuchsia-950/80 border border-fuchsia-500/40 text-fuchsia-400 flex items-center justify-center text-xl mb-4 group-hover:scale-110 transition-transform">
+                            <i class="fa-solid fa-microscope"></i>
+                        </div>
+                        <h3 class="text-xl font-extrabold text-fuchsia-400 mb-1.5 tracking-tight">SPAS</h3>
+                        <p class="text-xs text-slate-300 font-medium leading-relaxed">
+                            School of Pure and Applied Sciences
+                        </p>
+                    </div>
+                    <div class="pt-6 border-t border-slate-800/80 mt-6">
+                        <a href="{{ Auth::check() ? route('items.index', ['search' => 'SPAS']) : route('login') }}" class="text-[11px] font-bold text-fuchsia-400 group-hover:text-fuchsia-300 uppercase tracking-widest flex items-center justify-between">
+                            <span>Open Logbook</span>
+                            <i class="fa-solid fa-arrow-right group-hover:translate-x-1 transition-transform"></i>
+                        </a>
+                    </div>
+                </div>
+
+                <!-- 8. SANRM -->
+                <div class="bg-[#121c32] hover:bg-[#182542] border border-slate-800/90 hover:border-teal-500/60 rounded-3xl p-6 flex flex-col justify-between transition-all duration-300 hover:shadow-xl hover:shadow-teal-950/40 group hover:-translate-y-1">
+                    <div>
+                        <div class="w-12 h-12 rounded-2xl bg-teal-950/80 border border-teal-500/40 text-teal-400 flex items-center justify-center text-xl mb-4 group-hover:scale-110 transition-transform">
+                            <i class="fa-solid fa-wheat-awn"></i>
+                        </div>
+                        <h3 class="text-xl font-extrabold text-teal-400 mb-1.5 tracking-tight">SANRM</h3>
+                        <p class="text-xs text-slate-300 font-medium leading-relaxed">
+                            School of Agriculture and Natural Resources Management
+                        </p>
+                    </div>
+                    <div class="pt-6 border-t border-slate-800/80 mt-6">
+                        <a href="{{ Auth::check() ? route('items.index', ['search' => 'SANRM']) : route('login') }}" class="text-[11px] font-bold text-teal-400 group-hover:text-teal-300 uppercase tracking-widest flex items-center justify-between">
+                            <span>Open Logbook</span>
+                            <i class="fa-solid fa-arrow-right group-hover:translate-x-1 transition-transform"></i>
+                        </a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
     <!-- Kisii University Campus Retrieval Points & Landmark Gallery -->
     <div class="py-16 bg-white border-t border-slate-200/80">
         <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 space-y-10">
@@ -427,6 +608,9 @@
 
     <!-- Unified Official Global Footer -->
     @include('layouts.footer')
+
+    <!-- Accessibility Widget -->
+    @include('layouts.accessibility')
 
     <!-- Search Input Validation Script -->
     <script>

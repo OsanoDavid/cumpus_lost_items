@@ -28,13 +28,16 @@ class LoginRequest extends FormRequest
     public function rules(): array
     {
         return [
-            'email' => ['required', 'string', 'email'],
+            'login' => ['required_without:email', 'string'],
+            'email' => ['nullable', 'string'],
             'password' => ['required', 'string'],
         ];
     }
 
     /**
      * Attempt to authenticate the request's credentials.
+     * Rule: Student can login with registration number OR email address.
+     * First priority is registration number; fallback/forgotten uses email.
      *
      * @throws ValidationException
      */
@@ -42,13 +45,28 @@ class LoginRequest extends FormRequest
     {
         $this->ensureIsNotRateLimited();
 
-        if (! Auth::attempt($this->only('email', 'password'), $this->boolean('remember'))) {
+        $identifier = trim($this->input('login') ?: $this->input('email'));
+        $password = $this->input('password');
+
+        // Priority 1: Match by Student Registration Number (case-insensitive)
+        $user = \App\Models\User::whereRaw('LOWER(reg_number) = ?', [strtolower($identifier)])->first();
+
+        // Priority 2: Fallback to Email Address if not found by reg number or if an email was entered
+        if (! $user) {
+            $user = \App\Models\User::whereRaw('LOWER(email) = ?', [strtolower($identifier)])->first();
+        }
+
+        if (! $user || ! \Illuminate\Support\Facades\Hash::check($password, $user->password)) {
             RateLimiter::hit($this->throttleKey());
 
+            $errorField = $this->filled('login') ? 'login' : 'email';
+
             throw ValidationException::withMessages([
-                'email' => trans('auth.failed'),
+                $errorField => 'These credentials do not match our campus student records. Please check your Registration Number or Email.',
             ]);
         }
+
+        Auth::login($user, $this->boolean('remember'));
 
         RateLimiter::clear($this->throttleKey());
     }
@@ -67,9 +85,10 @@ class LoginRequest extends FormRequest
         event(new Lockout($this));
 
         $seconds = RateLimiter::availableIn($this->throttleKey());
+        $errorField = $this->filled('login') ? 'login' : 'email';
 
         throw ValidationException::withMessages([
-            'email' => trans('auth.throttle', [
+            $errorField => trans('auth.throttle', [
                 'seconds' => $seconds,
                 'minutes' => ceil($seconds / 60),
             ]),
@@ -81,6 +100,7 @@ class LoginRequest extends FormRequest
      */
     public function throttleKey(): string
     {
-        return Str::transliterate(Str::lower($this->string('email')).'|'.$this->ip());
+        $identifier = trim($this->input('login') ?: $this->input('email'));
+        return Str::transliterate(Str::lower($identifier).'|'.$this->ip());
     }
 }

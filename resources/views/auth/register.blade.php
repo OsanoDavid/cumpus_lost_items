@@ -151,18 +151,19 @@
                         <i class="fa-solid fa-calendar-days absolute left-3.5 top-1/2 -translate-y-1/2 text-slate-400 text-xs"></i>
                         <select id="year_of_study" name="year_of_study" required
                             class="block w-full pl-10 pr-8 py-3 bg-white border border-slate-300 rounded-xl text-sm focus:ring-2 focus:ring-emerald-500 focus:border-emerald-500 text-slate-800 transition shadow-xs @error('year_of_study') border-red-400 @enderror">
-                            <option value="">Select Year</option>
+                            <option value="">Select Year of Study (Max Year 6)</option>
                             <option value="Year 1" {{ old('year_of_study') == 'Year 1' ? 'selected' : '' }}>Year 1</option>
                             <option value="Year 2" {{ old('year_of_study') == 'Year 2' ? 'selected' : '' }}>Year 2</option>
                             <option value="Year 3" {{ old('year_of_study') == 'Year 3' ? 'selected' : '' }}>Year 3</option>
                             <option value="Year 4" {{ old('year_of_study') == 'Year 4' ? 'selected' : '' }}>Year 4</option>
-                            <option value="Year 5+" {{ old('year_of_study') == 'Year 5+' ? 'selected' : '' }}>Year 5+</option>
+                            <option value="Year 5" {{ old('year_of_study') == 'Year 5' ? 'selected' : '' }}>Year 5</option>
+                            <option value="Year 6" {{ old('year_of_study') == 'Year 6' ? 'selected' : '' }}>Year 6</option>
                         </select>
                     </div>
                     <x-input-error :messages="$errors->get('year_of_study')" class="mt-1 font-semibold text-red-600 text-xs" />
                 </div>
 
-                <!-- School -->
+                <!-- School (Exact 8 Kisii University Schools in full with acronym in brackets) -->
                 <div>
                     <div class="flex items-center justify-between mb-1.5">
                         <label for="school" class="block text-xs font-bold uppercase tracking-wider text-slate-700">
@@ -176,14 +177,15 @@
                         <i class="fa-solid fa-building-columns absolute left-3.5 top-1/2 -translate-y-1/2 text-slate-400 text-xs"></i>
                         <select id="school" name="school" required
                             class="block w-full pl-10 pr-8 py-3 bg-white border border-slate-300 rounded-xl text-sm focus:ring-2 focus:ring-emerald-500 focus:border-emerald-500 text-slate-800 transition shadow-xs @error('school') border-red-400 @enderror">
-                            <option value="">Select School</option>
-                            <option value="School of Computing and Informatics" {{ old('school') == 'School of Computing and Informatics' ? 'selected' : '' }}>Computing &amp; Informatics</option>
-                            <option value="School of Pure and Applied Sciences" {{ old('school') == 'School of Pure and Applied Sciences' ? 'selected' : '' }}>Pure &amp; Applied Sciences</option>
-                            <option value="School of Business and Economics" {{ old('school') == 'School of Business and Economics' ? 'selected' : '' }}>Business &amp; Economics</option>
-                            <option value="School of Education" {{ old('school') == 'School of Education' ? 'selected' : '' }}>Education</option>
-                            <option value="School of Arts and Social Sciences" {{ old('school') == 'School of Arts and Social Sciences' ? 'selected' : '' }}>Arts &amp; Social Sciences</option>
-                            <option value="School of Agriculture" {{ old('school') == 'School of Agriculture' ? 'selected' : '' }}>Agriculture</option>
-                            <option value="School of Law" {{ old('school') == 'School of Law' ? 'selected' : '' }}>Law</option>
+                            <option value="">Select Faculty / School</option>
+                            <option value="School of Information Sciences & Technology (SIST)" {{ old('school') == 'School of Information Sciences & Technology (SIST)' ? 'selected' : '' }}>School of Information Sciences &amp; Technology (SIST)</option>
+                            <option value="School of Arts and Social Sciences (SASS)" {{ old('school') == 'School of Arts and Social Sciences (SASS)' ? 'selected' : '' }}>School of Arts and Social Sciences (SASS)</option>
+                            <option value="School of Business and Economics (SOBE)" {{ old('school') == 'School of Business and Economics (SOBE)' ? 'selected' : '' }}>School of Business and Economics (SOBE)</option>
+                            <option value="School of Education and Human Resource Development (SEDHURED)" {{ old('school') == 'School of Education and Human Resource Development (SEDHURED)' ? 'selected' : '' }}>School of Education and Human Resource Development (SEDHURED)</option>
+                            <option value="School of Health Sciences (SHS)" {{ old('school') == 'School of Health Sciences (SHS)' ? 'selected' : '' }}>School of Health Sciences (SHS)</option>
+                            <option value="School of Law (SLAW)" {{ old('school') == 'School of Law (SLAW)' ? 'selected' : '' }}>School of Law (SLAW)</option>
+                            <option value="School of Pure and Applied Sciences (SPAS)" {{ old('school') == 'School of Pure and Applied Sciences (SPAS)' ? 'selected' : '' }}>School of Pure and Applied Sciences (SPAS)</option>
+                            <option value="School of Agriculture and Natural Resources Management (SANRM)" {{ old('school') == 'School of Agriculture and Natural Resources Management (SANRM)' ? 'selected' : '' }}>School of Agriculture and Natural Resources Management (SANRM)</option>
                         </select>
                     </div>
                     <x-input-error :messages="$errors->get('school')" class="mt-1 font-semibold text-red-600 text-xs" />

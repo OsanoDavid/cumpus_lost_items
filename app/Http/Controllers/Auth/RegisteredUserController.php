@@ -35,7 +35,7 @@ class RegisteredUserController extends Controller
             'phone'                  => ['required', 'string', 'max:10', 'regex:/^[0-9]{10}$/'], // Phone cannot exceed 10 digits
             'reg_number'             => ['required', 'string', 'regex:/^[A-Za-z0-9]{1,5}\/\d{1,5}\/\d{1,2}$/', 'unique:'.User::class],
             'course'                 => ['required', 'string', 'max:255'],
-            'year_of_study'          => ['required', 'string', 'max:50'],
+            'year_of_study'          => ['required', 'string', 'in:Year 1,Year 2,Year 3,Year 4,Year 5,Year 6'],
             'school'                 => ['required', 'string', 'max:255'],
             'password'               => ['required', 'confirmed', Rules\Password::defaults()],
             'reason_for_registering' => ['required', 'string'],

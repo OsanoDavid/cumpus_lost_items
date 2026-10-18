@@ -87,8 +87,49 @@
             }
         });
 
-        // Hide loader when navigating back or forward or loaded
-        window.addEventListener('pageshow', hideLoader);
-        document.addEventListener('DOMContentLoaded', hideLoader);
+        // Hide loader when navigating back or forward or loaded with smooth slow landing effect
+        function landPageSmoothly() {
+            hideLoader();
+            const mainContent = document.querySelector('main') || document.querySelector('.page-content') || document.body;
+            if (mainContent && !mainContent.classList.contains('page-landing-enter')) {
+                mainContent.classList.add('page-landing-enter');
+            }
+        }
+
+        window.addEventListener('pageshow', landPageSmoothly);
+        if (document.readyState === 'complete' || document.readyState === 'interactive') {
+            setTimeout(landPageSmoothly, 60);
+        } else {
+            document.addEventListener('DOMContentLoaded', landPageSmoothly);
+        }
     })();
 </script>
+
+<style>
+    /* Slow, elegant landing animation with delayed reveal */
+    @keyframes pageLandSlowly {
+        0% {
+            opacity: 0;
+            transform: translateY(18px);
+            filter: blur(1.5px);
+        }
+        50% {
+            opacity: 0.8;
+            filter: blur(0.5px);
+        }
+        100% {
+            opacity: 1;
+            transform: translateY(0);
+            filter: blur(0);
+        }
+    }
+
+    .page-landing-enter {
+        animation: pageLandSlowly 0.85s cubic-bezier(0.16, 1, 0.3, 1) forwards;
+    }
+
+    .delay-land-1 { animation: pageLandSlowly 0.9s cubic-bezier(0.16, 1, 0.3, 1) 0.12s both; }
+    .delay-land-2 { animation: pageLandSlowly 0.95s cubic-bezier(0.16, 1, 0.3, 1) 0.24s both; }
+    .delay-land-3 { animation: pageLandSlowly 1.0s cubic-bezier(0.16, 1, 0.3, 1) 0.36s both; }
+    .delay-land-4 { animation: pageLandSlowly 1.05s cubic-bezier(0.16, 1, 0.3, 1) 0.48s both; }
+</style>

@@ -53,5 +53,8 @@
 
         <!-- Global Unified Footer with All Direct Routes -->
         @include('layouts.footer')
+
+        <!-- Accessibility Widget -->
+        @include('layouts.accessibility')
     </body>
 </html>

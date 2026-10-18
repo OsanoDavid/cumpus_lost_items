@@ -23,5 +23,8 @@ class DatabaseSeeder extends Seeder
                 'password' => bcrypt('password'),
             ]
         );
+
+        // Seed default Super Administrator for immediate administrative access
+        $this->call(SuperAdminSeeder::class);
     }
 }

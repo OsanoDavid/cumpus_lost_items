@@ -38,17 +38,25 @@
     <form method="POST" action="{{ route('login') }}" class="space-y-5">
         @csrf
 
-        <!-- Email Address -->
+        <!-- Student Registration Number or Email Address -->
         <div>
-            <label for="email" class="block text-xs font-bold uppercase tracking-wider text-slate-700 mb-1.5">
-                Email Address <span class="text-red-500">*</span>
-            </label>
-            <div class="relative">
-                <i class="fa-solid fa-envelope absolute left-3.5 top-1/2 -translate-y-1/2 text-slate-400 text-xs"></i>
-                <input id="email" type="email" name="email" value="{{ old('email') }}" required autofocus autocomplete="username"
-                    placeholder="your.email@university.ac.ke"
-                    class="block w-full pl-10 pr-4 py-3 border border-slate-300 rounded-xl text-sm focus:ring-2 focus:ring-emerald-500 focus:border-emerald-500 @error('email') border-red-400 @enderror">
+            <div class="flex items-center justify-between mb-1.5">
+                <label for="login" class="block text-xs font-bold uppercase tracking-wider text-slate-700">
+                    Reg. Number / Email <span class="text-red-500">*</span>
+                </label>
+                <span class="text-[10px] font-bold text-emerald-800 bg-emerald-100 px-2 py-0.5 rounded-full">
+                    Priority: Reg No.
+                </span>
             </div>
+            <div class="relative">
+                <i class="fa-solid fa-id-card absolute left-3.5 top-1/2 -translate-y-1/2 text-slate-400 text-xs"></i>
+                <input id="login" type="text" name="login" value="{{ old('login', old('email')) }}" required autofocus autocomplete="username"
+                    placeholder="e.g. IN13/00000/23 (or email address)"
+                    class="block w-full pl-10 pr-4 py-3 border border-slate-300 rounded-xl text-sm focus:ring-2 focus:ring-emerald-500 focus:border-emerald-500 @error('login') border-red-400 @enderror @error('email') border-red-400 @enderror">
+            </div>
+            <p class="text-[11px] text-slate-500 mt-1">
+                <i class="fa-solid fa-circle-info text-emerald-600 mr-1"></i> Sign in with your Student Registration Number. In case forgotten, use your registered email address.
+            </p>
         </div>
 
         <!-- Password -->
